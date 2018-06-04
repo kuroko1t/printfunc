@@ -1,5 +1,7 @@
 import inspect
 import os,re
+#import sys
+#sys.setrecursionlimit(10000)p
 
 def location():
   frame = inspect.currentframe().f_back
@@ -28,4 +30,4 @@ def location():
         f.write('\n#----#\n')
       else:
         f.write('#----#\n')
-  return path, frame.f_code.co_name, frame.f_lineno,inspect.getargvalues(frame).locals
+  #return path, frame.f_code.co_name, frame.f_lineno,inspect.getargvalues(frame).locals
