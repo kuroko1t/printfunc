@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import re
 import os
 import sys
@@ -5,9 +7,9 @@ import shutil
 import common
 
 class Prfunc():
-    def __init__(self):
+    def __init__(self,path):
         self.getpython(path)
-        oldpath = re.sub(r'/$','',path) + '.old
+        oldpath = re.sub(r'/$','',path) + '.old'
         if not os.path.exists(oldpath):
             shutil.copytree(path,oldpath)
 
@@ -29,7 +31,7 @@ class Prfunc():
                 if i == index_future:
                     f.write(line)
                     f.write(location)
-                elif re.search('(^| )def ',line):
+                elif re.search('^ *def ',line):
                     f.write(line)
                     if re.search('\):',line):
                         val = True
@@ -50,14 +52,14 @@ class Prfunc():
     def getpython(self,path):
         pythonfile_list = []
         for files in common.find_all_files(path):
-            _ , ext = os.path.splittext(files)
+            _ , ext = os.path.splitext(files)
             if ext == '.py':
-                pythonfile_list.appen(file)
+                pythonfile_list.append(files)
         self.pythonfile_list = pythonfile_list
         return pythonfile_list
-    
+
     def sedall(self):
-        for file in self.pythonfile_list:
+        for files in self.pythonfile_list:
             self.sedfile(files)
 
 if __name__ == '__main__':
